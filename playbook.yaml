@@ -1,0 +1,15 @@
+- hosts: batch2
+
+  tasks:
+    - name: install git
+      ansible.builtin.apt:
+        name: git
+        state: present
+        update_cache: yes
+      become: yes # <---
+
+#    - name: remove redis server
+#      ansible.builtin.apt:
+#        name: redis-server
+#        state: absent
+#      become: yes # <---
