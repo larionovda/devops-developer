@@ -6,10 +6,17 @@
         name: git
         state: present
         update_cache: yes
-      become: yes # <---
+      become: yes
+      tags: nginx
 
-#    - name: remove redis server
-#      ansible.builtin.apt:
-#        name: redis-server
-#        state: absent
-#      become: yes # <---
+    - name: Create a user 'johnd' with a home directory
+      ansible.builtin.user:
+        name: johnd
+      become: yes
+      tags: nginx 	
+
+    - name: update cache
+      ansible.builtin.apt:
+        update_cache: true
+      become: yes
+      tags: updatecache
