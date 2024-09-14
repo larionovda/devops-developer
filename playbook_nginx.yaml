@@ -24,7 +24,7 @@
         enabled: yes
 
     - name: copy index.html
-      ansible.builtin.copy:
+      ansible.builtin.template:
         src: "{{root_dir}}index.html"
         dest: /usr/share/nginx/html/index.html
 
