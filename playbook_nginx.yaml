@@ -1,0 +1,29 @@
+- hosts: batch2
+  become: yes
+
+  tasks:
+    - name: Install nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: present	
+   
+    - name: start nginx
+      service: 
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: copy index.html
+      ansible.builtin.copy:
+        src: /Users/dmitrijlarionov/kubernetes-certification-guide/lab-setup/mac-silicon/files/index.html
+        dest: /usr/share/nginx/html/index.html
+
+    - name: copy nginx.conf
+      ansible.builtin.copy:
+        src: /Users/dmitrijlarionov/kubernetes-certification-guide/lab-setup/mac-silicon/files/nginx.conf
+        dest: /etc/nginx/nginx.conf
+
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted

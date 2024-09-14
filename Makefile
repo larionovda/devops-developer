@@ -3,3 +3,6 @@ pingremote:
 	
 installupdate:
 	ansible-playbook --check playbook.yaml -i inventory.ini -t nginx
+
+installnginx:
+	ansible-playbook --check playbook_nginx.yaml -i inventory.ini -t nginx
