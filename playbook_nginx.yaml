@@ -1,11 +1,17 @@
 - hosts: batch2
   become: yes
+  
+  handlers:
+    - name: restart nginx
+      ansible.builtin.service:
+        name: nginx
+        state: reloaded
 
   tasks:
     - name: Install nginx
       ansible.builtin.apt:
         name: nginx
-        state: present	
+        state: present
    
     - name: start nginx
       service: 
@@ -22,8 +28,6 @@
       ansible.builtin.copy:
         src: /Users/dmitrijlarionov/kubernetes-certification-guide/lab-setup/mac-silicon/files/nginx.conf
         dest: /etc/nginx/nginx.conf
-
-    - name: restart nginx
-      service:
-        name: nginx
-        state: restarted
+      notify:
+        - restart nginx
+ 
