@@ -1,6 +1,10 @@
 - hosts: batch2
   become: yes
   
+  vars:
+    nginx_port: 8090
+    root_dir: /Users/dmitrijlarionov/kubernetes-certification-guide/lab-setup/mac-silicon/files/
+  
   handlers:
     - name: restart nginx
       ansible.builtin.service:
@@ -21,12 +25,12 @@
 
     - name: copy index.html
       ansible.builtin.copy:
-        src: /Users/dmitrijlarionov/kubernetes-certification-guide/lab-setup/mac-silicon/files/index.html
+        src: "{{root_dir}}index.html"
         dest: /usr/share/nginx/html/index.html
 
-    - name: copy nginx.conf
-      ansible.builtin.copy:
-        src: /Users/dmitrijlarionov/kubernetes-certification-guide/lab-setup/mac-silicon/files/nginx.conf
+    - name: template nginx.conf
+      ansible.builtin.template:
+        src: "{{root_dir}}nginx.conf"
         dest: /etc/nginx/nginx.conf
       notify:
         - restart nginx
